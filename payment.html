@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Payment Page</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #030303; /* Dark background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #004d6f; /* Dark blue text */
+            overflow: hidden;
+            position: relative;
+        }
+        /* Bubble background animation */
+        .bubble-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            width: 40px;
+            height: 40px;
+            background-color: #1d95a5; /* Light blue bubbles */
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: bubbleRise 10s infinite ease-in-out;
+        }
+        /* Bubble animation */
+        @keyframes bubbleRise {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1200px) scale(1.5);
+                opacity: 0;
+            }
+        }
+        /* Generate multiple bubbles */
+        .bubble:nth-child(1) { left: 10%; width: 50px; height: 50px; animation-duration: 9s; }
+        .bubble:nth-child(2) { left: 30%; width: 70px; height: 70px; animation-duration: 8s; }
+        .bubble:nth-child(3) { left: 50%; width: 40px; height: 40px; animation-duration: 10s; }
+        .bubble:nth-child(4) { left: 70%; width: 60px; height: 60px; animation-duration: 12s; }
+        .bubble:nth-child(5) { left: 90%; width: 80px; height: 80px; animation-duration: 11s; }
+        /* Container */
+        .container {
+            position: relative;
+            background-color: rgba(5, 5, 5, 0.9); /* White background with transparency */
+            padding: 15px; /* Reduced padding */
+            border-radius: 3px; /* Reduced border-radius */
+            max-width: 400px; /* Increased max-width */
+            width: 100%;
+            z-index: 1;
+            box-shadow: 0 0 20px rgba(18, 167, 221, 0.5); /* Blue shadow */
+        }
+        /* Animated blue border shadow */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 5px solid rgba(7, 152, 205, 0.8); /* Blue border */
+            border-radius: 8px; /* Adjusted for a smoother look */
+            animation: borderShadowPulse 4s infinite ease-in-out; /* Animation for shadow */
+            z-index: -1; /* Place behind the container */
+        }
+        @keyframes borderShadowPulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.7; /* Slightly transparent in the middle of the animation */
+            }
+        }
+        /* Payment Heading with Animation */
+        h1 {
+            color: #00838f; /* Darker blue heading */
+            font-size: 1.8em; /* Reduced font size */
+            text-align: center;
+            margin-bottom: 15px; /* Reduced margin */
+            opacity: 0;
+            animation: fadeIn 2s forwards; /* Fade-in animation */
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        label {
+            display: block;
+            margin-bottom: 5px; /* Reduced margin */
+            color: #006379; /* Teal label */
+            font-weight: bold;
+        }
+        input[type="text"], input[type="number"], input[type="date"], input[type="email"] {
+            width: 100%;
+            padding: 8px; /* Reduced padding */
+            margin-bottom: 15px; /* Reduced margin */
+            border: 1px solid #00acc1; /* Light blue border */
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 0.9em; /* Reduced font size */
+            background-color: #e0f2f1; /* Very light blue background */
+            color: #15181a;
+        }
+        .payment-btn {
+            background-color: #00acc1; /* Light blue button */
+            color: white;
+            border: none;
+            padding: 10px; /* Reduced padding */
+            width: 100%;
+            font-size: 1em; /* Reduced font size */
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .payment-btn:hover {
+            background-color: #00838f; /* Darker blue on hover */
+        }
+        .form-group {
+            margin-bottom: 10px; /* Reduced margin */
+        }
+        .payment-info {
+            text-align: center;
+            margin-top: 15px; /* Reduced margin */
+        }
+        .payment-info p {
+            font-size: 0.8em; /* Reduced font size */
+            color: #1d2c2f;
+        }
+        /* Payment Method Toggle */
+        .payment-options {
+            margin-top: 10px; /* Reduced margin */
+            text-align: center;
+        }
+        .payment-options label {
+            margin-right: 10px;
+            font-size: 0.9em; /* Reduced font size */
+            cursor: pointer;
+        }
+        .payment-options input {
+            margin-right: 5px;
+        }
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            h1 { font-size: 1.6em; }
+            input[type="text"], input[type="number"], input[type="date"], input[type="email"] { font-size: 0.85em; }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 10px; max-width: 350px; } /* Adjusted width for smaller screens */
+            h1 { font-size: 1.4em; }
+        }
+        @media (max-width: 480px) {
+            .container { padding: 5px; max-width: 90%; }
+            h1 { font-size: 1.2em; }
+            input[type="text"], input[type="number"], input[type="date"], input[type="email"] { font-size: 0.75em; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Bubble animation container -->
+    <div class="bubble-container">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+    <div class="container">
+        <h1>Payment</h1>
+        <form id="payment-form">
+            <!-- Name on card (common for Credit and Debit Card) -->
+            <div class="form-group card-details">
+                <label for="name">Name on Card</label>
+                <input type="text" id="name" name="name" placeholder="John Doe" required>
+            </div>
+            <!-- Card number (for Credit and Debit Card) -->
+            <div class="form-group card-details">
+                <label for="card-number">Card Number</label>
+                <input type="number" id="card-number" name="card-number" placeholder="1111 2222 3333 4444" required>
+            </div>
+            <!-- Expiry date (for Credit and Debit Card) -->
+            <div class="form-group card-details">
+                <label for="expiry-date">Expiry Date</label>
+                <input type="date" id="expiry-date" name="expiry-date" required>
+            </div>
+            <!-- CVV (for Credit and Debit Card) -->
+            <div class="form-group card-details">
+                <label for="cvv">CVV</label>
+                <input type="number" id="cvv" name="cvv" placeholder="123" required>
+            </div>
+            <!-- UPI ID (only for UPI) -->
+            <div class="form-group upi-details" style="display: none;">
+                <label for="upi-id">UPI ID</label>
+                <input type="text" id="upi-id" name="upi-id" placeholder="your-upi-id@bank" required>
+            </div>
+            <!-- Email (common for all payment methods) -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="your-email@example.com" required>
+            </div>
+            <!-- Submit button -->
+            <button type="button" class="payment-btn" onclick="processPayment()">Pay Now</button>
+        </form>
+        <!-- Payment Method Selection -->
+        <div class="form-group payment-options">
+            <label>
+                <input type="radio" name="payment-method" value="card" checked onclick="togglePaymentMethod()"> Credit/Debit Card
+            </label>
+            <label>
+                <input type="radio" name="payment-method" value="upi" onclick="togglePaymentMethod()"> UPI
+            </label>
+        </div>
+        <div class="payment-info">
+            <p>Secure payments with end-to-end encryption.</p>
+        </div>
+    </div>
+    <script>
+        function togglePaymentMethod() {
+            const selectedMethod = document.querySelector('input[name="payment-method"]:checked').value;
+            const cardDetails = document.querySelectorAll('.card-details');
+            const upiDetails = document.querySelector('.upi-details');
+            if (selectedMethod === 'upi') {
+                // Show UPI fields and hide card fields
+                cardDetails.forEach(element => element.style.display = 'none');
+                upiDetails.style.display = 'block';
+            } else {
+                // Show card fields and hide UPI fields
+                cardDetails.forEach(element => element.style.display = 'block');
+                upiDetails.style.display = 'none';
+            }
+        }
+        function processPayment() {
+            const selectedMethod = document.querySelector('input[name="payment-method"]:checked').value;
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            if (selectedMethod === 'upi') {
+                const upiId = document.getElementById('upi-id').value;
+                if (!upiId) {
+                    alert('Please enter your UPI ID.');
+                    return;
+                }
+            } else {
+                const cardNumber = document.getElementById('card-number').value;
+                const expiryDate = document.getElementById('expiry-date').value;
+                const cvv = document.getElementById('cvv').value;
+                if (!cardNumber || !expiryDate || !cvv) {
+                    alert('Please fill in all card details.');
+                    return;
+                }
+            }
+            alert('Payment processed successfully!');
+        }
+    </script>
+</body>
+</html>

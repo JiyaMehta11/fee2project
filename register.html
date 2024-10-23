@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Gameverse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet"> <!-- Bolder font weights -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #000; /* Black background */
+            position: relative;
+        }
+
+        .register-container {
+            max-width: 400px;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.9); /* Dark background */
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 204, 255, 0.7), 0 0 40px rgba(0, 204, 255, 0.5); /* Light blue shadow */
+            text-align: center;
+            z-index: 1;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .register-container h2 {
+            color: #00CCFF; /* Light blue */
+            margin-bottom: 30px;
+            font-weight: 700; /* Bold font weight */
+            font-size: 2rem; /* Larger font size */
+            text-shadow: 0 0 10px rgba(0, 204, 255, 0.8);
+        }
+
+        .register-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .register-container input[type="text"],
+        .register-container input[type="email"],
+        .register-container input[type="password"] {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 1px solid #00CCFF; /* Light blue border */
+            background-color: #1a1a1a; /* Dark input field background */
+            color: #fff;
+            font-size: 1.1rem; /* Larger font size for inputs */
+            font-weight: 500; /* Semi-bold font weight */
+            box-shadow: inset 0 0 10px rgba(0, 204, 255, 0.5); /* Light blue glow */
+            transition: all 0.3s ease;
+        }
+
+        .register-container input[type="text"]:focus,
+        .register-container input[type="email"]:focus,
+        .register-container input[type="password"]:focus {
+            outline: none;
+            border-color: #00CCFF;
+            box-shadow: 0 0 15px rgba(0, 204, 255, 0.7); /* Stronger light blue glow on focus */
+        }
+
+        .register-container input[type="submit"] {
+            padding: 15px;
+            margin-top: 20px;
+            background: linear-gradient(45deg, #00CCFF, #0099CC); /* Light blue gradient */
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.2rem; /* Larger font size for button */
+            font-weight: 700; /* Bold font weight */
+            transition: transform .2s ease-in-out, background-color .3s ease;
+            box-shadow: 0 0 20px rgba(0, 204, 255, .7), 
+                        0 0 20px rgba(0, 153, 204, .7); /* Dual-color shadow */
+        }
+
+        .register-container input[type="submit"]:hover {
+            transform: scale(1.05);
+            background: linear-gradient(45deg, #0099CC, #00CCFF); /* Slightly different gradient on hover */
+        }
+
+        .register-container p {
+            margin-top: 20px;
+            color: #ccc;
+            font-size: .9rem; /* Slightly larger font size for text */
+        }
+
+        .register-container a {
+            color: #00CCFF; /* Light blue for links */
+            text-decoration: none;
+            transition: color .3s ease;
+        }
+
+        .register-container a:hover {
+            color: #0099CC; /* Darker light blue on hover */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: .5; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .register-container {
+                padding-left: 15px;
+                padding-right: 15px;
+                width: 90%;
+                box-shadow: none;
+            }
+
+            .register-container h2 {
+                font-size: 1.5rem; 
+            }
+
+            .register-container input[type="text"],
+            .register-container input[type="email"],
+            .register-container input[type="password"],
+            .register-container input[type="submit"] {
+                font-size: 1rem; 
+            }
+
+            .register-container p {
+                font-size: .8rem; 
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="register-container">
+        <h2>Register for Gameverse</h2>
+        <form action="#" method="POST">
+            <input type="text" name="username" placeholder="Username" required aria-label="Username">
+            <input type="email" name="email" placeholder="Email" required aria-label="Email">
+            <input type="password" name="password" placeholder="Password" required aria-label="Password">
+            <input type="submit" value="Register">
+        </form>
+        <p>Already have an account? <a href="login.html">Login here</a></p>
+    </div>
+</body>
+</html>
